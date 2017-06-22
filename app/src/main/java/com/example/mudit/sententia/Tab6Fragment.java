@@ -22,6 +22,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
+import static com.example.mudit.sententia.Constants.feedAPI;
 import static com.example.mudit.sententia.Constants.retrofit;
 
 /**
@@ -41,8 +42,6 @@ public class Tab6Fragment extends Fragment {
         final View view = inflater.inflate(R.layout.tab1_fragment, container, false);
         Log.d(TAG, "onCreate: Started.");
 
-        //feedAPI object created
-        FeedAPI feedAPI = retrofit.create(FeedAPI.class);
         Call<RSS> call = feedAPI.getRss(extension);
 
         call.enqueue(new Callback<RSS>() {

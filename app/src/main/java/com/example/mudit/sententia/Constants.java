@@ -19,4 +19,7 @@ public interface Constants {
             .baseUrl(BASE_URL)
             .addConverterFactory(SimpleXmlConverterFactory.create())
             .build();
+
+    //feedAPI object created
+    FeedAPI feedAPI = retrofit.create(FeedAPI.class);
 }
