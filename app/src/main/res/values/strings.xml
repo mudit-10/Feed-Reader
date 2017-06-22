@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Sententia</string>
+    <string name="tab1">Tab1</string>
+    <string name="tab2">Tab2</string>
+    <string name="tab3">Tab3</string>
+    <string name="testbtn1">TESTBTN 1</string>
+    <string name="testbtn2">TESTBTN 2</string>
+    <string name="testbtn3">TESTBTN 3</string>
+</resources>
