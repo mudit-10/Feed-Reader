@@ -6,4 +6,8 @@
     <string name="testbtn1">TESTBTN 1</string>
     <string name="testbtn2">TESTBTN 2</string>
     <string name="testbtn3">TESTBTN 3</string>
+    <string name="title">title</string>
+    <string name="creator">creator</string>
+    <string name="pubDate">pubDate</string>
+    <string name="content">content</string>
 </resources>

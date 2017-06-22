@@ -19,7 +19,8 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    private static final String BASE_URL = "http://sententia.in/";
+    private static final String BASE_URL = "" +
+            "tp://sententia.in/";
 
     private SectionsPageAdapter mSectionsPageAdapter;
     private ViewPager mViewPager;

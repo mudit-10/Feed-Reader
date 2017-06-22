@@ -1,5 +1,6 @@
 package com.example.mudit.sententia;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -54,7 +56,7 @@ public class Tab1Fragment extends Fragment {
                     List<Item> items = response.body().getChannel().getItems();
                     //Log.d(TAG, "onResponse: items: " + response.body().getChannel().getItems());
 
-                    ArrayList<Post> posts = new ArrayList<Post>();
+                    final ArrayList<Post> posts = new ArrayList<Post>();
                     for (int i = 0; i< items.size(); i++){
                         posts.add(new Post(
                                 items.get(i).getTitle(),
@@ -77,6 +79,19 @@ public class Tab1Fragment extends Fragment {
 
                     CustomListAdapter customListAdapter = new CustomListAdapter(getActivity(), R.layout.front_page, posts);
                     mListView.setAdapter(customListAdapter);
+
+                    mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Log.d(TAG, "onItemClick: Clicked: " + posts.get(position).toString());
+                            Intent intent = new Intent(getActivity(), QuickReads.class);
+                            intent.putExtra("@string/title", posts.get(position).getTitle());
+                            intent.putExtra("@string/creator", posts.get(position).getCreator());
+                            intent.putExtra("@string/pubDate", posts.get(position).getPubDate());
+                            intent.putExtra("@string/content", posts.get(position).getContent());
+                            startActivity(intent);
+                        }
+                    });
             }
 
             @Override
