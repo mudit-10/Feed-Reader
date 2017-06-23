@@ -72,7 +72,7 @@
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textAlignment="center"
-                android:text="asd"
+                android:text="test title"
                 android:id="@+id/titleView"/>
 
             </RelativeLayout>
@@ -85,7 +85,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="asdsad"
+                android:text="test content"
                 android:textColor="@color/black"
                 android:id="@+id/contentView"/>
             </RelativeLayout>

@@ -47,4 +47,7 @@ dependencies {
                 exclude group: 'stax', module: 'stax-api'
                 exclude group: 'stax', module: 'stax'
             }
+
+    //OkHTTP
+    compile 'com.squareup.okhttp3:okhttp:3.8.1'
 }

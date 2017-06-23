@@ -1,5 +1,6 @@
 package com.example.mudit.sententia;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -53,8 +55,8 @@ public class Tab6Fragment extends Fragment {
                 List<Item> blog_items = response.body().getChannel().getItems();
 
                 //Log.d(TAG, "onResponse: items: " + response.body().getChannel().getItems());
-
-                ArrayList<Post> blog_posts = new ArrayList<Post>();
+                
+                final ArrayList<Post> blog_posts = new ArrayList<Post>();
                 for (int i = 0; i < blog_items.size(); i++) {
                     blog_posts.add(new Post(
                             blog_items.get(i).getTitle(),
@@ -63,13 +65,13 @@ public class Tab6Fragment extends Fragment {
                             blog_items.get(i).getContent()
                     ));
                 }
-                for (int j = 0; j < blog_posts.size(); j++) {
-                    Log.d(TAG, "onResponse: \n " +
-                            "Title: " + blog_posts.get(j).getTitle() + "\n " +
-                            "Creator: " + blog_posts.get(j).getCreator() + "\n " +
-                            "PubDate: " + blog_posts.get(j).getPubDate() + "\n " +
-                            "Content: " + blog_posts.get(j).getContent() + "\n ");
-                }
+//                for (int j = 0; j < blog_posts.size(); j++) {
+//                    Log.d(TAG, "onResponse: \n " +
+//                            "Title: " + blog_posts.get(j).getTitle() + "\n " +
+//                            "Creator: " + blog_posts.get(j).getCreator() + "\n " +
+//                            "PubDate: " + blog_posts.get(j).getPubDate() + "\n " +
+//                            "Content: " + blog_posts.get(j).getContent() + "\n ");
+//                }
                 Log.i(TAG, "Blog Information successfully saved");
 
                 ListView mListView = (ListView) view.findViewById(R.id.listview1);
@@ -77,6 +79,19 @@ public class Tab6Fragment extends Fragment {
 
                 CustomListAdapter customListAdapter = new CustomListAdapter(getActivity(), R.layout.front_page, blog_posts);
                 mListView.setAdapter(customListAdapter);
+
+                mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Log.d(TAG, "onItemClick: Clicked: " + blog_posts.get(position).toString());
+                        Intent intent = new Intent(getActivity(), QuickReads.class);
+                        intent.putExtra("@string/title", blog_posts.get(position).getTitle());
+                        intent.putExtra("@string/creator", blog_posts.get(position).getCreator());
+                        intent.putExtra("@string/pubDate", blog_posts.get(position).getPubDate());
+                        intent.putExtra("@string/content", blog_posts.get(position).getContent());
+                        startActivity(intent);
+                    }
+                });
             }
 
             @Override

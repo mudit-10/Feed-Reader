@@ -65,13 +65,13 @@ public class Tab1Fragment extends Fragment {
                                 items.get(i).getContent()
                         ));
                     }
-                    for(int j = 0; j<posts.size(); j++) {
-                        Log.d(TAG, "onResponse: \n " +
-                                "Title: " + posts.get(j).getTitle() + "\n " +
-                                "Creator: " + posts.get(j).getCreator() + "\n " +
-                                "PubDate: " + posts.get(j).getPubDate() + "\n "+
-                                "Content: " + posts.get(j).getContent() + "\n ");
-                    }
+//                    for(int j = 0; j<posts.size(); j++) {
+//                        Log.d(TAG, "onResponse: \n " +
+//                                "Title: " + posts.get(j).getTitle() + "\n " +
+//                                "Creator: " + posts.get(j).getCreator() + "\n " +
+//                                "PubDate: " + posts.get(j).getPubDate() + "\n "+
+//                                "Content: " + posts.get(j).getContent() + "\n ");
+//                    }
                     Log.i(TAG, "Home Information successfully saved");
 
                     ListView mListView = (ListView) view.findViewById(R.id.listview1);

@@ -1,5 +1,6 @@
 package com.example.mudit.sententia;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -52,7 +54,7 @@ public class Tab4Fragment extends Fragment {
 
                 //Log.d(TAG, "onResponse: items: " + response.body().getChannel().getItems());
 
-                ArrayList<Post> sports_posts = new ArrayList<Post>();
+                final ArrayList<Post> sports_posts = new ArrayList<Post>();
                 for (int i = 0; i < sports_items.size(); i++) {
                     sports_posts.add(new Post(
                             sports_items.get(i).getTitle(),
@@ -61,13 +63,13 @@ public class Tab4Fragment extends Fragment {
                             sports_items.get(i).getContent()
                     ));
                 }
-                for (int j = 0; j < sports_posts.size(); j++) {
-                    Log.d(TAG, "onResponse: \n " +
-                            "Title: " + sports_posts.get(j).getTitle() + "\n " +
-                            "Creator: " + sports_posts.get(j).getCreator() + "\n " +
-                            "PubDate: " + sports_posts.get(j).getPubDate() + "\n " +
-                            "Content: " + sports_posts.get(j).getContent() + "\n ");
-                }
+//                for (int j = 0; j < sports_posts.size(); j++) {
+//                    Log.d(TAG, "onResponse: \n " +
+//                            "Title: " + sports_posts.get(j).getTitle() + "\n " +
+//                            "Creator: " + sports_posts.get(j).getCreator() + "\n " +
+//                            "PubDate: " + sports_posts.get(j).getPubDate() + "\n " +
+//                            "Content: " + sports_posts.get(j).getContent() + "\n ");
+//                }
                 Log.i(TAG, "Sports Information successfully saved");
 
                 ListView mListView = (ListView) view.findViewById(R.id.listview1);
@@ -75,6 +77,19 @@ public class Tab4Fragment extends Fragment {
 
                 CustomListAdapter customListAdapter = new CustomListAdapter(getActivity(), R.layout.front_page, sports_posts);
                 mListView.setAdapter(customListAdapter);
+
+                mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Log.d(TAG, "onItemClick: Clicked: " + sports_posts.get(position).toString());
+                        Intent intent = new Intent(getActivity(), QuickReads.class);
+                        intent.putExtra("@string/title", sports_posts.get(position).getTitle());
+                        intent.putExtra("@string/creator", sports_posts.get(position).getCreator());
+                        intent.putExtra("@string/pubDate", sports_posts.get(position).getPubDate());
+                        intent.putExtra("@string/content", sports_posts.get(position).getContent());
+                        startActivity(intent);
+                    }
+                });
             }
 
             @Override
