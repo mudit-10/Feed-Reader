@@ -18,8 +18,10 @@ import android.widget.TextView;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Entities;
 
 import java.io.IOException;
+import java.net.URL;
 
 import static com.example.mudit.sententia.R.id.none;
 
@@ -110,6 +112,12 @@ public class WebViewActivity extends AppCompatActivity {
             try {
                 Document htmlDocument = Jsoup.connect(link).get();
                 //Element element = htmlDocument.select("#content > div.herald-section.container").first();
+                Document.OutputSettings settings = htmlDocument.outputSettings();
+
+                settings.prettyPrint(false);
+                settings.escapeMode(Entities.EscapeMode.extended);
+                settings.charset("ASCII");
+                
                 Element element = htmlDocument.select("div.col-lg-10.col-md-10.col-sm-10").first();
                 // replace body with selected element
                 if(element!=null) {
