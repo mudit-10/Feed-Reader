@@ -61,7 +61,8 @@ public class Tab3Fragment extends Fragment {
                             politics_items.get(i).getTitle(),
                             "- " + politics_items.get(i).getCreator(),
                             politics_items.get(i).getPubDate(),
-                            politics_items.get(i).getContent()
+                            politics_items.get(i).getContent(),
+                            politics_items.get(i).getLink()
                     ));
                 }
 //                for (int j = 0; j < politics_posts.size(); j++) {
@@ -88,6 +89,7 @@ public class Tab3Fragment extends Fragment {
                         intent.putExtra("@string/creator", politics_posts.get(position).getCreator());
                         intent.putExtra("@string/pubDate", politics_posts.get(position).getPubDate());
                         intent.putExtra("@string/content", politics_posts.get(position).getContent());
+                        intent.putExtra("@string/link", politics_posts.get(position).getLink());
                         startActivity(intent);
                     }
                 });

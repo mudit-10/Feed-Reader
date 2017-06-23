@@ -62,7 +62,8 @@ public class Tab1Fragment extends Fragment {
                                 items.get(i).getTitle(),
                                 "- "+items.get(i).getCreator(),
                                 items.get(i).getPubDate(),
-                                items.get(i).getContent()
+                                items.get(i).getContent(),
+                                items.get(i).getLink()
                         ));
                     }
 //                    for(int j = 0; j<posts.size(); j++) {
@@ -70,7 +71,8 @@ public class Tab1Fragment extends Fragment {
 //                                "Title: " + posts.get(j).getTitle() + "\n " +
 //                                "Creator: " + posts.get(j).getCreator() + "\n " +
 //                                "PubDate: " + posts.get(j).getPubDate() + "\n "+
-//                                "Content: " + posts.get(j).getContent() + "\n ");
+//                                "Content: " + posts.get(j).getContent() + "\n "+
+//                                "Link: " + posts.get(j).getLink() + "\n ");
 //                    }
                     Log.i(TAG, "Home Information successfully saved");
 
@@ -84,11 +86,12 @@ public class Tab1Fragment extends Fragment {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             Log.d(TAG, "onItemClick: Clicked: " + posts.get(position).toString());
-                            Intent intent = new Intent(getActivity(), QuickReads.class);
+                            Intent intent = new Intent(getActivity(), WebViewActivity.class);
                             intent.putExtra("@string/title", posts.get(position).getTitle());
                             intent.putExtra("@string/creator", posts.get(position).getCreator());
                             intent.putExtra("@string/pubDate", posts.get(position).getPubDate());
                             intent.putExtra("@string/content", posts.get(position).getContent());
+                            intent.putExtra("@string/link", posts.get(position).getLink());
                             startActivity(intent);
                         }
                     });

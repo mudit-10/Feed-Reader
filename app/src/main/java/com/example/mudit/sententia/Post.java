@@ -9,13 +9,14 @@ public class Post {
     private String creator;
     private String pubDate;
     private String content;
+    private String link;
 
-    public Post(String title, String creator, String pubDate, String content
-    ) {
+    public Post(String title, String creator, String pubDate, String content, String link) {
         this.title = title;
         this.creator = creator;
         this.pubDate = pubDate;
         this.content = content;
+        this.link = link;
     }
 
     public String getTitle() {
@@ -48,5 +49,13 @@ public class Post {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 }

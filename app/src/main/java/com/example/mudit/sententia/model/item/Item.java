@@ -19,6 +19,9 @@ public class Item implements Serializable {
     @Element(required = false, name = "title")
     private String title;
 
+    @Element(required = false, name = "link")
+    private String link;
+
     @Element(required = false, name = "pubDate")
     private String pubDate;
 
@@ -33,8 +36,9 @@ public class Item implements Serializable {
     public Item() {
     }
 
-    public Item(String title, String pubDate, String creator, String content) {
+    public Item(String title, String link, String pubDate, String creator, String content) {
         this.title = title;
+        this.link = link;
         this.pubDate = pubDate;
         this.creator = creator;
         this.content = content;
@@ -74,10 +78,19 @@ public class Item implements Serializable {
         this.content = content;
     }
 
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
     @Override
     public String toString() {
         return "Item{" +
                 "title='" + title + '\'' +
+                ", link='" + link + '\'' +
                 ", pubDate='" + pubDate + '\'' +
                 ", creator='" + creator + '\'' +
                 ", content='" + content + '\'' +

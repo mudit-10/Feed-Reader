@@ -60,7 +60,8 @@ public class Tab5Fragment extends Fragment {
                             tech_items.get(i).getTitle(),
                             "- " + tech_items.get(i).getCreator(),
                             tech_items.get(i).getPubDate(),
-                            tech_items.get(i).getContent()
+                            tech_items.get(i).getContent(),
+                            tech_items.get(i).getLink()
                     ));
                 }
 //                for (int j = 0; j < tech_posts.size(); j++) {
@@ -87,6 +88,7 @@ public class Tab5Fragment extends Fragment {
                         intent.putExtra("@string/creator", tech_posts.get(position).getCreator());
                         intent.putExtra("@string/pubDate", tech_posts.get(position).getPubDate());
                         intent.putExtra("@string/content", tech_posts.get(position).getContent());
+                        intent.putExtra("@string/content", tech_posts.get(position).getLink());
                         startActivity(intent);
                     }
                 });

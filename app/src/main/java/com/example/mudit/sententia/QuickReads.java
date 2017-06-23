@@ -23,17 +23,22 @@ public class QuickReads extends AppCompatActivity {
         String creator;
         String pubDate;
         String content;
+        String link;
 
         Intent incomingIntent = getIntent();
         title = incomingIntent.getStringExtra("@string/title");
         creator = incomingIntent.getStringExtra("@string/creator");
         pubDate = incomingIntent.getStringExtra("@string/pubDate");
         content = incomingIntent.getStringExtra("@string/content");
+        link = incomingIntent.getStringExtra("@string/link");
+
 
         TextView contentView = (TextView) findViewById(R.id.contentView);
         TextView titleView = (TextView) findViewById(R.id.titleView);
-        //contentView.setNestedScrollingEnabled(true);
-        contentView.setText(Html.fromHtml(content));
+       contentView.setText(Html.fromHtml(content));
+//        titleView.setText(title);
+
+        //contentView.setText(Html.fromHtml(content,new URLImageParser(contentView, this), null));
         titleView.setText(title);
     }
 }

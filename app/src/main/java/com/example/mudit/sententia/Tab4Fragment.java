@@ -60,7 +60,8 @@ public class Tab4Fragment extends Fragment {
                             sports_items.get(i).getTitle(),
                             "- " + sports_items.get(i).getCreator(),
                             sports_items.get(i).getPubDate(),
-                            sports_items.get(i).getContent()
+                            sports_items.get(i).getContent(),
+                            sports_items.get(i).getLink()
                     ));
                 }
 //                for (int j = 0; j < sports_posts.size(); j++) {
@@ -87,6 +88,7 @@ public class Tab4Fragment extends Fragment {
                         intent.putExtra("@string/creator", sports_posts.get(position).getCreator());
                         intent.putExtra("@string/pubDate", sports_posts.get(position).getPubDate());
                         intent.putExtra("@string/content", sports_posts.get(position).getContent());
+                        intent.putExtra("@string/link", sports_posts.get(position).getLink());
                         startActivity(intent);
                     }
                 });

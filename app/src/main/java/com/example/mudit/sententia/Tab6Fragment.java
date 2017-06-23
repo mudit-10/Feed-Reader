@@ -33,9 +33,7 @@ import static com.example.mudit.sententia.Constants.retrofit;
 
 public class Tab6Fragment extends Fragment {
     private static final String TAG = "Tab6Fragment";
-
     private static final String extension = "/category/blog/";
-    private static final String BASE_URL = "http://sententia.in"+extension;
 
     @Nullable
     @Override
@@ -55,14 +53,15 @@ public class Tab6Fragment extends Fragment {
                 List<Item> blog_items = response.body().getChannel().getItems();
 
                 //Log.d(TAG, "onResponse: items: " + response.body().getChannel().getItems());
-                
+
                 final ArrayList<Post> blog_posts = new ArrayList<Post>();
                 for (int i = 0; i < blog_items.size(); i++) {
                     blog_posts.add(new Post(
                             blog_items.get(i).getTitle(),
                             "- " + blog_items.get(i).getCreator(),
                             blog_items.get(i).getPubDate(),
-                            blog_items.get(i).getContent()
+                            blog_items.get(i).getContent(),
+                            blog_items.get(i).getLink()
                     ));
                 }
 //                for (int j = 0; j < blog_posts.size(); j++) {
@@ -89,6 +88,7 @@ public class Tab6Fragment extends Fragment {
                         intent.putExtra("@string/creator", blog_posts.get(position).getCreator());
                         intent.putExtra("@string/pubDate", blog_posts.get(position).getPubDate());
                         intent.putExtra("@string/content", blog_posts.get(position).getContent());
+                        intent.putExtra("@string/content", blog_posts.get(position).getLink());
                         startActivity(intent);
                     }
                 });

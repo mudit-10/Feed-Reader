@@ -10,4 +10,5 @@
     <string name="creator">creator</string>
     <string name="pubDate">pubDate</string>
     <string name="content">content</string>
+    <string name="link">link</string>
 </resources>

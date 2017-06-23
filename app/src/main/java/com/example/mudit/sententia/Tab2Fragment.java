@@ -40,8 +40,6 @@ public class Tab2Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        Log.i(TAG,extension);
-
         final View view = inflater.inflate(R.layout.tab1_fragment, container, false);
         Log.d(TAG, "onCreate: Started.");
 
@@ -63,16 +61,18 @@ public class Tab2Fragment extends Fragment {
                             business_items.get(i).getTitle(),
                             "- " + business_items.get(i).getCreator(),
                             business_items.get(i).getPubDate(),
-                            business_items.get(i).getContent()
+                            business_items.get(i).getContent(),
+                            business_items.get(i).getLink()
                     ));
                 }
-//                for (int j = 0; j < business_posts.size(); j++) {
-//                    Log.d(TAG, "onResponse: \n " +
-//                            "Title: " + business_posts.get(j).getTitle() + "\n " +
-//                            "Creator: " + business_posts.get(j).getCreator() + "\n " +
-//                            "PubDate: " + business_posts.get(j).getPubDate() + "\n " +
-//                            "Content: " + business_posts.get(j).getContent() + "\n ");
-//                }
+                for (int j = 0; j < business_posts.size(); j++) {
+                    Log.d(TAG, "onResponse: \n " +
+                            "Title: " + business_posts.get(j).getTitle() + "\n " +
+                            "Creator: " + business_posts.get(j).getCreator() + "\n " +
+                            "PubDate: " + business_posts.get(j).getPubDate() + "\n " +
+                            //"Content: " + business_posts.get(j).getContent() + "\n " +
+                            "Link: " + business_posts.get(j).getLink() + "\n " );
+                }
                 Log.i(TAG, "Business Information successfully saved");
 
                 ListView mListView = (ListView) view.findViewById(R.id.listview1);
@@ -90,6 +90,7 @@ public class Tab2Fragment extends Fragment {
                         intent.putExtra("@string/creator", business_posts.get(position).getCreator());
                         intent.putExtra("@string/pubDate", business_posts.get(position).getPubDate());
                         intent.putExtra("@string/content", business_posts.get(position).getContent());
+                        intent.putExtra("@string/link", business_posts.get(position).getLink());
                         startActivity(intent);
                     }
                 });
