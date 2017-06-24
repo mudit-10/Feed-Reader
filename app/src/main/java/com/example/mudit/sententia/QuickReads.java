@@ -8,12 +8,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.w3c.dom.Text;
 
 /**
@@ -24,7 +27,6 @@ public class QuickReads extends AppCompatActivity {
     private static String TAG = "QuickReads";
     public static String FACEBOOK_URL = "https://www.facebook.com/SententiaMedia1/";
     public static String PAGE_ID = "SententiaMedia1";
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,6 +63,36 @@ public class QuickReads extends AppCompatActivity {
             }
         });
 
+        socialMedia();
+
+        Log.i(TAG, content);
+
+        //Using JSoup to remove image tags to not be displayed in text view, Regex was slightly erroneous
+
+        if(content != null) {
+            Document document = Jsoup.parse(content);
+            document.select("img").remove();
+            document.select("figure").remove();
+            content = document.toString();
+        }
+        contentView.setText(Html.fromHtml(content));
+        //contentView.setText(Html.fromHtml(content,new URLImageParser(contentView, this), null)); // For images in text view
+        titleView.setText(title);
+
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onButtonClick: Clicked: ");
+                Intent intent = new Intent(QuickReads.this, WebViewActivity.class);
+                intent.putExtra("@string/link", link);
+                intent.putExtra("@string/category", category);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void socialMedia()
+    {
         ImageView fb = (ImageView) findViewById(R.id.fb);
 
         fb.setOnClickListener(new View.OnClickListener() {
@@ -95,22 +127,6 @@ public class QuickReads extends AppCompatActivity {
                 intent.setAction(Intent.ACTION_VIEW);
                 intent.addCategory(Intent.CATEGORY_BROWSABLE);
                 intent.setData(Uri.parse("https://instagram.com/_u/sententiamedia1"));
-                startActivity(intent);
-            }
-        });
-
-
-        contentView.setText(Html.fromHtml(content));
-        //contentView.setText(Html.fromHtml(content,new URLImageParser(contentView, this), null)); // For images in text view
-        titleView.setText(title);
-
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onButtonClick: Clicked: ");
-                Intent intent = new Intent(QuickReads.this, WebViewActivity.class);
-                intent.putExtra("@string/link", link);
-                intent.putExtra("@string/category", category);
                 startActivity(intent);
             }
         });

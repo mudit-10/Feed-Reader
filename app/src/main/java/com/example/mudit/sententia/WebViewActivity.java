@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
+import android.net.wifi.WifiEnterpriseConfig;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -73,6 +74,7 @@ public class WebViewActivity extends AppCompatActivity {
         category = intent.getStringExtra("@string/category");
 
         toolbar_title.setText(category);
+        socialMedia();
 
         webview.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -100,44 +102,6 @@ public class WebViewActivity extends AppCompatActivity {
 //                loadingText.setText("");
 //            }
 //        });
-
-        ImageView fb = (ImageView) findViewById(R.id.fb);
-
-        fb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent facebookIntent = new Intent(Intent.ACTION_VIEW);
-                String facebookUrl = getFacebookPageURL(WebViewActivity.this);
-                facebookIntent.setData(Uri.parse(facebookUrl));
-                startActivity(facebookIntent);
-            }
-        });
-
-        ImageView twitter = (ImageView) findViewById(R.id.twitter);
-
-        twitter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse("https://twitter.com/SententiaMedia1"));
-                startActivity(intent);
-            }
-        });
-
-        ImageView insta = (ImageView) findViewById(R.id.insta);
-
-        insta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setAction(Intent.ACTION_VIEW);
-                intent.addCategory(Intent.CATEGORY_BROWSABLE);
-                intent.setData(Uri.parse("https://instagram.com/_u/sententiamedia1"));
-                startActivity(intent);
-            }
-        });
     }
 
     // load links in WebView instead of default browser
@@ -200,6 +164,46 @@ public class WebViewActivity extends AppCompatActivity {
                 finish();
             }
         }
+    }
+    private void socialMedia()
+    {
+        ImageView fb = (ImageView) findViewById(R.id.fb);
+
+        fb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent facebookIntent = new Intent(Intent.ACTION_VIEW);
+                String facebookUrl = getFacebookPageURL(WebViewActivity.this);
+                facebookIntent.setData(Uri.parse(facebookUrl));
+                startActivity(facebookIntent);
+            }
+        });
+
+        ImageView twitter = (ImageView) findViewById(R.id.twitter);
+
+        twitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("https://twitter.com/SententiaMedia1"));
+                startActivity(intent);
+            }
+        });
+
+        ImageView insta = (ImageView) findViewById(R.id.insta);
+
+        insta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("https://instagram.com/_u/sententiamedia1"));
+                startActivity(intent);
+            }
+        });
     }
     //method to get the right URL to use in the intent
     public String getFacebookPageURL(Context context) {

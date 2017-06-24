@@ -144,6 +144,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="test content"
+                android:textSize="14sp"
+                android:maxLines="20"
+                android:ellipsize="end"
                 android:textColor="@color/black"
                 android:id="@+id/contentView"/>
             <Button

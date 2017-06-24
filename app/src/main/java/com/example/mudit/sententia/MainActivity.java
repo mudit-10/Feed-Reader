@@ -25,8 +25,7 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
-    private static final String BASE_URL = "" +
-            "tp://sententia.in/";
+
     public static String FACEBOOK_URL = "https://www.facebook.com/SententiaMedia1/";
     public static String PAGE_ID = "SententiaMedia1";
 
@@ -46,9 +45,25 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setOffscreenPageLimit(6);         /* limit is a fixed integer, doesn't refresh the fragment */
         setupViewPager(mViewPager);
 
+        socialMedia();
+
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+    }
 
+    private void setupViewPager(ViewPager viewPager){
+        SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
+        adapter.addFragment(new Tab1Fragment(), "HOME");
+        adapter.addFragment(new Tab2Fragment(), "BUSINESS");
+        adapter.addFragment(new Tab3Fragment(), "POLITICS");
+        adapter.addFragment(new Tab4Fragment(), "SPORTS");
+        adapter.addFragment(new Tab5Fragment(), "TECH");
+        adapter.addFragment(new Tab6Fragment(), "BLOG");
+        viewPager.setAdapter(adapter);
+    }
+
+    private void socialMedia()
+    {
         ImageView fb = (ImageView) findViewById(R.id.fb);
 
         fb.setOnClickListener(new View.OnClickListener() {
@@ -87,18 +102,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-    private void setupViewPager(ViewPager viewPager){
-        SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-        adapter.addFragment(new Tab1Fragment(), "HOME");
-        adapter.addFragment(new Tab2Fragment(), "BUSINESS");
-        adapter.addFragment(new Tab3Fragment(), "POLITICS");
-        adapter.addFragment(new Tab4Fragment(), "SPORTS");
-        adapter.addFragment(new Tab5Fragment(), "TECH");
-        adapter.addFragment(new Tab6Fragment(), "BLOG");
-        viewPager.setAdapter(adapter);
-    }
-
     //method to get the right URL to use in the intent
     public String getFacebookPageURL(Context context) {
         PackageManager packageManager = context.getPackageManager();

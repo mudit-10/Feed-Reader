@@ -71,7 +71,7 @@ public class Tab5Fragment extends Fragment {
 //                            "PubDate: " + tech_posts.get(j).getPubDate() + "\n " +
 //                            "Content: " + tech_posts.get(j).getContent() + "\n ");
 //                }
-                Log.i(TAG, "Tech Information successfully saved");
+                Log.d(TAG, "Tech Information successfully saved");
 
                 ListView mListView = (ListView) view.findViewById(R.id.listview1);
                 mListView.setNestedScrollingEnabled(true);  // So, it becomes collapsible even when I scroll the list
