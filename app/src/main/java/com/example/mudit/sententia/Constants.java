@@ -4,6 +4,11 @@ import android.util.Log;
 
 import com.example.mudit.sententia.model.RSS;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;

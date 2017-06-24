@@ -12,4 +12,5 @@
     <string name="content">content</string>
     <string name="link">link</string>
     <string name="category">category</string>
+    <string name="image_url">image_url</string>
 </resources>

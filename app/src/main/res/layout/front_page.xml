@@ -52,5 +52,11 @@
                 android:layout_marginTop="10dp"
                 android:id="@+id/postAuthor"/>
         </RelativeLayout>
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/cardProgressDialog"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
     </RelativeLayout>
 </RelativeLayout>

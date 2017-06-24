@@ -96,13 +96,21 @@
         <RelativeLayout
             android:layout_below="@+id/topBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:id="@+id/image">
+
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:id="@+id/qr_image"
                 android:src="@drawable/animals"/>
+
+            <ProgressBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:id="@+id/qr_progress"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -145,7 +153,7 @@
                 android:layout_height="wrap_content"
                 android:text="test content"
                 android:textSize="14sp"
-                android:maxLines="20"
+                android:maxLines="18"
                 android:ellipsize="end"
                 android:textColor="@color/black"
                 android:id="@+id/contentView"/>

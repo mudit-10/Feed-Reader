@@ -15,6 +15,11 @@ import android.widget.Toast;
 import com.example.mudit.sententia.model.RSS;
 import com.example.mudit.sententia.model.item.Item;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +55,7 @@ public class Tab6Fragment extends Fragment {
 
                 //Log.d(TAG, "onResponse: feed: " + response.body().toString()); | This is used to display everything in pretty format
                 //Log.d(TAG, "onResponse: Server Response: " + response.toString());
-                List<Item> blog_items = response.body().getChannel().getItems();
+                final List<Item> blog_items = response.body().getChannel().getItems();
 
                 //Log.d(TAG, "onResponse: items: " + response.body().getChannel().getItems());
 
@@ -61,7 +66,8 @@ public class Tab6Fragment extends Fragment {
                             "- " + blog_items.get(i).getCreator(),
                             blog_items.get(i).getPubDate(),
                             blog_items.get(i).getContent(),
-                            blog_items.get(i).getLink()
+                            blog_items.get(i).getLink(),
+                            extractImageUrl(blog_items.get(i).getContent())
                     ));
                 }
 //                for (int j = 0; j < blog_posts.size(); j++) {
@@ -89,6 +95,7 @@ public class Tab6Fragment extends Fragment {
                         intent.putExtra("@string/pubDate", blog_posts.get(position).getPubDate());
                         intent.putExtra("@string/content", blog_posts.get(position).getContent());
                         intent.putExtra("@string/link", blog_posts.get(position).getLink());
+                        intent.putExtra("@string/image_url", blog_posts.get(position).getImg_url());
                         intent.putExtra("@string/category", "Blog");
                         startActivity(intent);
                     }
@@ -102,5 +109,17 @@ public class Tab6Fragment extends Fragment {
             }
         });
         return view;
+    }
+    private String extractImageUrl(String description) {
+        Document document = Jsoup.parse(description);
+        Elements imgs = document.select("img");
+
+        for (Element img : imgs) {
+            if (img.hasAttr("src")) {
+                return img.attr("src");
+            }
+        }
+        // no image URL
+        return "";
     }
 }

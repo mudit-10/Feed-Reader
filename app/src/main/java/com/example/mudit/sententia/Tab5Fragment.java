@@ -15,6 +15,11 @@ import android.widget.Toast;
 import com.example.mudit.sententia.model.RSS;
 import com.example.mudit.sententia.model.item.Item;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,7 +66,8 @@ public class Tab5Fragment extends Fragment {
                             "- " + tech_items.get(i).getCreator(),
                             tech_items.get(i).getPubDate(),
                             tech_items.get(i).getContent(),
-                            tech_items.get(i).getLink()
+                            tech_items.get(i).getLink(),
+                            extractImageUrl(tech_items.get(i).getContent())
                     ));
                 }
 //                for (int j = 0; j < tech_posts.size(); j++) {
@@ -89,6 +95,7 @@ public class Tab5Fragment extends Fragment {
                         intent.putExtra("@string/pubDate", tech_posts.get(position).getPubDate());
                         intent.putExtra("@string/content", tech_posts.get(position).getContent());
                         intent.putExtra("@string/link", tech_posts.get(position).getLink());
+                        intent.putExtra("@string/image_url", tech_posts.get(position).getImg_url());
                         intent.putExtra("@string/category", "Technology");
                         startActivity(intent);
                     }
@@ -102,5 +109,17 @@ public class Tab5Fragment extends Fragment {
             }
         });
         return view;
+    }
+    private String extractImageUrl(String description) {
+        Document document = Jsoup.parse(description);
+        Elements imgs = document.select("img");
+
+        for (Element img : imgs) {
+            if (img.hasAttr("src")) {
+                return img.attr("src");
+            }
+        }
+        // no image URL
+        return "";
     }
 }

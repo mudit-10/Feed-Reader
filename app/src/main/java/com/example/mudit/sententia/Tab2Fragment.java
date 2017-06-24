@@ -16,6 +16,11 @@ import android.widget.Toast;
 import com.example.mudit.sententia.model.RSS;
 import com.example.mudit.sententia.model.item.Item;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,17 +67,18 @@ public class Tab2Fragment extends Fragment {
                             "- " + business_items.get(i).getCreator(),
                             business_items.get(i).getPubDate(),
                             business_items.get(i).getContent(),
-                            business_items.get(i).getLink()
+                            business_items.get(i).getLink(),
+                            extractImageUrl(business_items.get(i).getContent())
                     ));
                 }
-                for (int j = 0; j < business_posts.size(); j++) {
-                    Log.d(TAG, "onResponse: \n " +
-                            "Title: " + business_posts.get(j).getTitle() + "\n " +
-                            "Creator: " + business_posts.get(j).getCreator() + "\n " +
-                            "PubDate: " + business_posts.get(j).getPubDate() + "\n " +
-                            //"Content: " + business_posts.get(j).getContent() + "\n " +
-                            "Link: " + business_posts.get(j).getLink() + "\n " );
-                }
+//                for (int j = 0; j < business_posts.size(); j++) {
+//                    Log.d(TAG, "onResponse: \n " +
+//                            "Title: " + business_posts.get(j).getTitle() + "\n " +
+//                            "Creator: " + business_posts.get(j).getCreator() + "\n " +
+//                            "PubDate: " + business_posts.get(j).getPubDate() + "\n " +
+//                            "Content: " + business_posts.get(j).getContent() + "\n " +
+//                            "Link: " + business_posts.get(j).getLink() + "\n " );
+//                }
                 Log.i(TAG, "Business Information successfully saved");
 
                 ListView mListView = (ListView) view.findViewById(R.id.listview1);
@@ -91,6 +97,7 @@ public class Tab2Fragment extends Fragment {
                         intent.putExtra("@string/pubDate", business_posts.get(position).getPubDate());
                         intent.putExtra("@string/content", business_posts.get(position).getContent());
                         intent.putExtra("@string/link", business_posts.get(position).getLink());
+                        intent.putExtra("@string/image_url", business_posts.get(position).getImg_url());
                         intent.putExtra("@string/category", "Business");
                         startActivity(intent);
                     }
@@ -104,5 +111,17 @@ public class Tab2Fragment extends Fragment {
             }
         });
         return view;
+    }
+    private String extractImageUrl(String description) {
+        Document document = Jsoup.parse(description);
+        Elements imgs = document.select("img");
+
+        for (Element img : imgs) {
+            if (img.hasAttr("src")) {
+                return img.attr("src");
+            }
+        }
+        // no image URL
+        return "";
     }
 }

@@ -10,13 +10,15 @@ public class Post {
     private String pubDate;
     private String content;
     private String link;
+    private String img_url;
 
-    public Post(String title, String creator, String pubDate, String content, String link) {
+    public Post(String title, String creator, String pubDate, String content, String link, String img_url) {
         this.title = title;
         this.creator = creator;
         this.pubDate = pubDate;
         this.content = content;
         this.link = link;
+        this.img_url = img_url;
     }
 
     public String getTitle() {
@@ -57,5 +59,13 @@ public class Post {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public String getImg_url() {
+        return img_url;
+    }
+
+    public void setImg_url(String img_url) {
+        this.img_url = img_url;
     }
 }

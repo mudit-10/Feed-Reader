@@ -16,6 +16,11 @@ import android.widget.Toast;
 import com.example.mudit.sententia.model.RSS;
 import com.example.mudit.sententia.model.item.Item;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,7 +67,8 @@ public class Tab3Fragment extends Fragment {
                             "- " + politics_items.get(i).getCreator(),
                             politics_items.get(i).getPubDate(),
                             politics_items.get(i).getContent(),
-                            politics_items.get(i).getLink()
+                            politics_items.get(i).getLink(),
+                            extractImageUrl(politics_items.get(i).getContent())
                     ));
                 }
 //                for (int j = 0; j < politics_posts.size(); j++) {
@@ -90,6 +96,7 @@ public class Tab3Fragment extends Fragment {
                         intent.putExtra("@string/pubDate", politics_posts.get(position).getPubDate());
                         intent.putExtra("@string/content", politics_posts.get(position).getContent());
                         intent.putExtra("@string/link", politics_posts.get(position).getLink());
+                        intent.putExtra("@string/image_url", politics_posts.get(position).getImg_url());
                         intent.putExtra("@string/category", "Politics");
                         startActivity(intent);
                     }
@@ -103,5 +110,17 @@ public class Tab3Fragment extends Fragment {
             }
         });
         return view;
+    }
+    private String extractImageUrl(String description) {
+        Document document = Jsoup.parse(description);
+        Elements imgs = document.select("img");
+
+        for (Element img : imgs) {
+            if (img.hasAttr("src")) {
+                return img.attr("src");
+            }
+        }
+        // no image URL
+        return "";
     }
 }

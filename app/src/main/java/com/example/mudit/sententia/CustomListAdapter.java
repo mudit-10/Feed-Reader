@@ -3,7 +3,6 @@ package com.example.mudit.sententia;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,8 +41,8 @@ public class CustomListAdapter extends ArrayAdapter<Post> {
         TextView creator;
 //        TextView pubDate;
 //        TextView content;
-//        ImageView thumbnailURL;
-//        ProgressBar mProgressBar;
+        ImageView thumbnailURL;
+        ProgressBar mProgressBar;
     }
 
     /**
@@ -58,7 +57,7 @@ public class CustomListAdapter extends ArrayAdapter<Post> {
         mResource = resource;
 
         //sets up the image loader library
-        //setupImageLoader();
+        setupImageLoader();
     }
 
     @NonNull
@@ -68,9 +67,7 @@ public class CustomListAdapter extends ArrayAdapter<Post> {
         //get the post's information
         String title = getItem(position).getTitle();
         String creator = getItem(position).getCreator();
-        //String pubDate = getItem(position).getPubDate();
-        //String content = getItem(position).getContent();
-        //String imgUrl = getItem(position).getThumbnailURL();
+        String imgUrl = getItem(position).getImg_url();
 
         try{
             //ViewHolder object
@@ -82,8 +79,8 @@ public class CustomListAdapter extends ArrayAdapter<Post> {
                 holder= new ViewHolder();
                 holder.title = (TextView) convertView.findViewById(R.id.postTitle);
                 holder.creator = (TextView) convertView.findViewById(R.id.postAuthor);
-                //holder.pubDate= (TextView) convertView.findViewById(R.id.cardAuthor);
-                //holder.content = (TextView) convertView.findViewById(R.id.cardUpdated);
+                holder.thumbnailURL = (ImageView) convertView.findViewById(R.id.cardImage);
+                holder.mProgressBar = (ProgressBar) convertView.findViewById(R.id.cardProgressDialog);
                 convertView.setTag(holder);
             }
             else{
@@ -95,7 +92,7 @@ public class CustomListAdapter extends ArrayAdapter<Post> {
             holder.creator.setText(creator);
             //holder.content.setText(Html.fromHtml(content)); // For < Nougat
 
-            /*
+
             //create the imageloader object
             ImageLoader imageLoader = ImageLoader.getInstance();
 
@@ -128,7 +125,7 @@ public class CustomListAdapter extends ArrayAdapter<Post> {
                     holder.mProgressBar.setVisibility(View.GONE);
                 }
 
-            }); */
+            });
 
             return convertView;
         }catch (IllegalArgumentException e){

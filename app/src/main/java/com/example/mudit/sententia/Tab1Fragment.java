@@ -17,6 +17,11 @@ import android.widget.Toast;
 import com.example.mudit.sententia.model.RSS;
 import com.example.mudit.sententia.model.item.Item;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,14 +61,15 @@ public class Tab1Fragment extends Fragment {
                     List<Item> items = response.body().getChannel().getItems();
                     //Log.d(TAG, "onResponse: items: " + response.body().getChannel().getItems());
 
-                    final ArrayList<Post> posts = new ArrayList<Post>();
+                final ArrayList<Post> posts = new ArrayList<Post>();
                     for (int i = 0; i< items.size(); i++){
                         posts.add(new Post(
                                 items.get(i).getTitle(),
                                 "- "+items.get(i).getCreator(),
                                 items.get(i).getPubDate(),
                                 items.get(i).getContent(),
-                                items.get(i).getLink()
+                                items.get(i).getLink(),
+                                extractImageUrl(items.get(i).getContent())
                         ));
                     }
 //                    for(int j = 0; j<posts.size(); j++) {
@@ -72,7 +78,8 @@ public class Tab1Fragment extends Fragment {
 //                                "Creator: " + posts.get(j).getCreator() + "\n " +
 //                                "PubDate: " + posts.get(j).getPubDate() + "\n "+
 //                                "Content: " + posts.get(j).getContent() + "\n "+
-//                                "Link: " + posts.get(j).getLink() + "\n ");
+//                                "Link: " + posts.get(j).getLink() + "\n " +
+//                                "img: " + posts.get(j).getImg_url() + "\n ");
 //                    }
                     Log.i(TAG, "Home Information successfully saved");
 
@@ -92,6 +99,7 @@ public class Tab1Fragment extends Fragment {
                             intent.putExtra("@string/pubDate", posts.get(position).getPubDate());
                             intent.putExtra("@string/content", posts.get(position).getContent());
                             intent.putExtra("@string/link", posts.get(position).getLink());
+                            intent.putExtra("@string/image_url", posts.get(position).getImg_url());
                             intent.putExtra("@string/category", "Home");
                             startActivity(intent);
                         }
@@ -105,5 +113,18 @@ public class Tab1Fragment extends Fragment {
             }
         });
         return view;
+    }
+
+    private String extractImageUrl(String description) {
+        Document document = Jsoup.parse(description);
+        Elements imgs = document.select("img");
+
+        for (Element img : imgs) {
+            if (img.hasAttr("src")) {
+                return img.attr("src");
+            }
+        }
+        // no image URL
+        return "";
     }
 }
