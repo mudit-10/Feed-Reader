@@ -94,11 +94,17 @@
             android:layout_height="match_parent"
             android:layout_marginTop="50dp">
 
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
             <WebView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/webview">
             </WebView>
+
+            </ScrollView>
 
             <ProgressBar
                 android:layout_width="100dp"
