@@ -86,7 +86,7 @@ public class Tab1Fragment extends Fragment {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             Log.d(TAG, "onItemClick: Clicked: " + posts.get(position).toString());
-                            Intent intent = new Intent(getActivity(), WebViewActivity.class);
+                            Intent intent = new Intent(getActivity(), QuickReads.class);
                             intent.putExtra("@string/title", posts.get(position).getTitle());
                             intent.putExtra("@string/creator", posts.get(position).getCreator());
                             intent.putExtra("@string/pubDate", posts.get(position).getPubDate());

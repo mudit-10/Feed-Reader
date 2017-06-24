@@ -1,10 +1,17 @@
 package com.example.mudit.sententia;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -13,6 +20,9 @@ import android.widget.TextView;
 
 public class QuickReads extends AppCompatActivity {
     private static String TAG = "QuickReads";
+    public static String FACEBOOK_URL = "https://www.facebook.com/SententiaMedia1/";
+    public static String PAGE_ID = "SententiaMedia1";
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -23,7 +33,7 @@ public class QuickReads extends AppCompatActivity {
         String creator;
         String pubDate;
         String content;
-        String link;
+        final String link;
 
         Intent incomingIntent = getIntent();
         title = incomingIntent.getStringExtra("@string/title");
@@ -35,10 +45,82 @@ public class QuickReads extends AppCompatActivity {
 
         TextView contentView = (TextView) findViewById(R.id.contentView);
         TextView titleView = (TextView) findViewById(R.id.titleView);
-       contentView.setText(Html.fromHtml(content));
-//        titleView.setText(title);
+        Button button1 = (Button) findViewById(R.id.button1);
+        ImageView back_button = (ImageView) findViewById(R.id.back_button);
 
-        //contentView.setText(Html.fromHtml(content,new URLImageParser(contentView, this), null));
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                QuickReads.this.finish();
+            }
+        });
+
+        ImageView fb = (ImageView) findViewById(R.id.fb);
+
+        fb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent facebookIntent = new Intent(Intent.ACTION_VIEW);
+                String facebookUrl = getFacebookPageURL(QuickReads.this);
+                facebookIntent.setData(Uri.parse(facebookUrl));
+                startActivity(facebookIntent);
+            }
+        });
+
+        ImageView twitter = (ImageView) findViewById(R.id.twitter);
+
+        twitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("https://twitter.com/SententiaMedia1"));
+                startActivity(intent);
+            }
+        });
+
+        ImageView insta = (ImageView) findViewById(R.id.insta);
+
+        insta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("https://instagram.com/_u/sententiamedia1"));
+                startActivity(intent);
+            }
+        });
+
+
+        contentView.setText(Html.fromHtml(content));
+        //contentView.setText(Html.fromHtml(content,new URLImageParser(contentView, this), null)); // For images in text view
         titleView.setText(title);
+
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onButtonClick: Clicked: ");
+                Intent intent = new Intent(QuickReads.this, WebViewActivity.class);
+                intent.putExtra("@string/link", link);
+                startActivity(intent);
+            }
+        });
+    }
+
+    //method to get the right URL to use in the intent
+    public String getFacebookPageURL(Context context) {
+        PackageManager packageManager = context.getPackageManager();
+        try {
+            int versionCode = packageManager.getPackageInfo("com.facebook.katana", 0).versionCode;
+            if (versionCode >= 3002850) { //newer versions of fb app
+                return "fb://facewebmodal/f?href=" + FACEBOOK_URL;
+            } else { //older versions of fb app
+                return "fb://page/" + PAGE_ID;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            return FACEBOOK_URL; //normal web url
+        }
     }
 }

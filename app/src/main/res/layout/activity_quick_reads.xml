@@ -152,6 +152,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@id/contentView"
                 android:textColor="@color/black"
+                android:id="@+id/button1"
                 android:text="Read More"/>
             </RelativeLayout>
         </RelativeLayout>

@@ -1,7 +1,10 @@
 package com.example.mudit.sententia;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +18,8 @@ import android.view.View;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -32,6 +37,8 @@ import java.io.IOException;
 public class WebViewActivity extends AppCompatActivity {
 
     private static final String TAG = "WebViewActivity";
+    public static String FACEBOOK_URL = "https://www.facebook.com/SententiaMedia1/";
+    public static String PAGE_ID = "SententiaMedia1";
 
     WebView webview;
     Handler uiHandler = new Handler();
@@ -45,10 +52,17 @@ public class WebViewActivity extends AppCompatActivity {
         setContentView(R.layout.webview_activity);
         webview = (WebView) findViewById(R.id.webview);
         progressBar = (ProgressBar) findViewById(R.id.webviewLoadingProgressBar);
+        ImageView back_button = (ImageView) findViewById(R.id.back_button);
         loadingText = (TextView) findViewById(R.id.progressText);
         Log.d(TAG, "onCreate: Started.");
 
         progressBar.setVisibility(View.VISIBLE);
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WebViewActivity.this.finish();
+            }
+        });
 
         Intent intent = getIntent();
         link = intent.getStringExtra("@string/link");
@@ -60,7 +74,6 @@ public class WebViewActivity extends AppCompatActivity {
         });
 
         try {
-
             webview.setWebViewClient(new MyWebViewClient());
             new BackgroundWorker().execute();
         }
@@ -79,6 +92,44 @@ public class WebViewActivity extends AppCompatActivity {
 //                loadingText.setText("");
 //            }
 //        });
+
+        ImageView fb = (ImageView) findViewById(R.id.fb);
+
+        fb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent facebookIntent = new Intent(Intent.ACTION_VIEW);
+                String facebookUrl = getFacebookPageURL(WebViewActivity.this);
+                facebookIntent.setData(Uri.parse(facebookUrl));
+                startActivity(facebookIntent);
+            }
+        });
+
+        ImageView twitter = (ImageView) findViewById(R.id.twitter);
+
+        twitter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("https://twitter.com/SententiaMedia1"));
+                startActivity(intent);
+            }
+        });
+
+        ImageView insta = (ImageView) findViewById(R.id.insta);
+
+        insta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("https://instagram.com/_u/sententiamedia1"));
+                startActivity(intent);
+            }
+        });
     }
 
     // load links in WebView instead of default browser
@@ -140,6 +191,20 @@ public class WebViewActivity extends AppCompatActivity {
                 Log.i(TAG, e.getMessage());
                 finish();
             }
+        }
+    }
+    //method to get the right URL to use in the intent
+    public String getFacebookPageURL(Context context) {
+        PackageManager packageManager = context.getPackageManager();
+        try {
+            int versionCode = packageManager.getPackageInfo("com.facebook.katana", 0).versionCode;
+            if (versionCode >= 3002850) { //newer versions of fb app
+                return "fb://facewebmodal/f?href=" + FACEBOOK_URL;
+            } else { //older versions of fb app
+                return "fb://page/" + PAGE_ID;
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            return FACEBOOK_URL; //normal web url
         }
     }
 }
