@@ -12,11 +12,12 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:gravity="center"
             android:id="@+id/topBar">
 
             <android.support.design.widget.AppBarLayout
@@ -25,10 +26,67 @@
                 android:paddingTop="@dimen/appbar_padding_top">
 
                 <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
+                    android:background="@color/websiteLogo"
+                    app:contentInsetLeft="0dp"
+                    app:contentInsetStart="0dp"
                     app:layout_scrollFlags="scroll|enterAlways"
-                    android:background="@color/websiteLogo">
+                    app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textAlignment="center"
+                        android:weightSum="100">
+
+                        <ImageView
+                            android:id="@+id/back_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="20"
+                            android:src="@drawable/back" />
+
+                        <TextView
+                            android:id="@+id/toolbar_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="@string/app_name"
+                            android:textAlignment="center"
+                            android:textColor="@color/white"
+                            android:textSize="24sp"
+                            android:layout_weight="59"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/fb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="7"
+                            android:src="@drawable/facebook" />
+
+                        <ImageView
+                            android:id="@+id/twitter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="7"
+                            android:src="@drawable/twitter" />
+
+                        <ImageView
+                            android:id="@+id/insta"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_weight="7"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/instagram" />
+
+                    </LinearLayout>
                 </android.support.v7.widget.Toolbar>
 
             </android.support.design.widget.AppBarLayout>
@@ -88,9 +146,18 @@
                 android:text="test content"
                 android:textColor="@color/black"
                 android:id="@+id/contentView"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/contentView"
+                android:textColor="@color/black"
+                android:text="Read More"/>
             </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>
+
     </ScrollView>
 
 </android.support.design.widget.CoordinatorLayout>
+

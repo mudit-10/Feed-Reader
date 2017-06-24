@@ -1,31 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent">
 
-    <WebView
+    <android.support.design.widget.CoordinatorLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main_content"
+        android:background="#FFFFFF"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/webview">
-    </WebView>
+        android:fitsSystemWindows="true"
+        tools:context="com.example.mudit.sententia.MainActivity">
 
-    <ProgressBar
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/webviewLoadingProgressBar"
-        android:layout_centerInParent="true"
-        style="?android:attr/progressBarStyle"/>
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/appbar_padding_top"
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-    <TextView
-        android:layout_alignBottom="@id/webviewLoadingProgressBar"
-        android:layout_alignTop="@id/webviewLoadingProgressBar"
-        android:layout_alignRight="@id/webviewLoadingProgressBar"
-        android:layout_alignLeft="@id/webviewLoadingProgressBar"
-        android:text="Loading Webpage..."
-        android:textStyle="bold"
-        android:textSize="10sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/progressText"/>
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/websiteLogo"
+                app:contentInsetLeft="0dp"
+                app:contentInsetStart="0dp"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center"
+                    android:weightSum="100">
+
+                    <ImageView
+                        android:id="@+id/back_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="20"
+                        android:src="@drawable/back" />
+
+                    <TextView
+                        android:id="@+id/toolbar_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="@string/app_name"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="24sp"
+                        android:layout_weight="59"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/fb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="7"
+                        android:src="@drawable/facebook" />
+
+                    <ImageView
+                        android:id="@+id/twitter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="7"
+                        android:src="@drawable/twitter" />
+
+                    <ImageView
+                        android:id="@+id/insta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="7"
+                        android:layout_marginRight="5dp"
+                        android:src="@drawable/instagram" />
+
+                </LinearLayout>
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="50dp">
+
+            <WebView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/webview">
+            </WebView>
+
+            <ProgressBar
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/webviewLoadingProgressBar"
+                android:layout_centerInParent="true"
+                style="?android:attr/progressBarStyle"/>
+
+            <TextView
+                android:layout_alignBottom="@id/webviewLoadingProgressBar"
+                android:layout_alignTop="@id/webviewLoadingProgressBar"
+                android:layout_alignRight="@id/webviewLoadingProgressBar"
+                android:layout_alignLeft="@id/webviewLoadingProgressBar"
+                android:text="Loading Article..."
+                android:textStyle="bold"
+                android:textSize="10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressText"/>
+        </RelativeLayout>
+    </android.support.design.widget.CoordinatorLayout>
+
 </RelativeLayout>

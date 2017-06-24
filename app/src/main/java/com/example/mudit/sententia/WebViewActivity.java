@@ -1,6 +1,7 @@
 package com.example.mudit.sententia;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,9 +22,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Entities;
 
 import java.io.IOException;
-import java.net.URL;
-
-import static com.example.mudit.sententia.R.id.none;
 
 /**
  * Created by mudit on 23/6/17.
@@ -36,14 +34,16 @@ public class WebViewActivity extends AppCompatActivity {
     WebView webview;
     Handler uiHandler = new Handler();
     String link;
+    ProgressBar progressBar;
+    TextView loadingText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.webview_activity);
         webview = (WebView) findViewById(R.id.webview);
-        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.webviewLoadingProgressBar);
-        final TextView loadingText = (TextView) findViewById(R.id.progressText);
+        progressBar = (ProgressBar) findViewById(R.id.webviewLoadingProgressBar);
+        loadingText = (TextView) findViewById(R.id.progressText);
         Log.d(TAG, "onCreate: Started.");
 
         progressBar.setVisibility(View.VISIBLE);
@@ -62,24 +62,15 @@ public class WebViewActivity extends AppCompatActivity {
         }
 
 //        webview.getSettings().setJavaScriptEnabled(true);
+//        webview.loadUrl(link);
 //
 //        webview.setWebViewClient(new WebViewClient() {
 //            @Override
 //            public void onPageFinished(WebView view, String url) {
-//                try {
-//                    webview.loadUrl("javascript:(function() { " +
-//                            "document.getElementsByTagName('head')[0].style.display= 'none'; " +
-//                            "})()");
-//                    }
-//                catch(Exception e)
-//                {
-//                    Log.i(TAG, e.getMessage());
-//                }
 //                progressBar.setVisibility(View.GONE);
 //                loadingText.setText("");
 //            }
 //        });
-//        webview.loadUrl(link);
     }
 
     // load links in WebView instead of default browser
@@ -99,6 +90,7 @@ public class WebViewActivity extends AppCompatActivity {
         }
     }
 
+    //Does the main part, works Asynchranously
     private class BackgroundWorker extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -114,10 +106,12 @@ public class WebViewActivity extends AppCompatActivity {
                 //Element element = htmlDocument.select("#content > div.herald-section.container").first();
                 Document.OutputSettings settings = htmlDocument.outputSettings();
 
+                //Solves the character-encoding issue
+
                 settings.prettyPrint(false);
                 settings.escapeMode(Entities.EscapeMode.extended);
                 settings.charset("ASCII");
-                
+
                 Element element = htmlDocument.select("div.col-lg-10.col-md-10.col-sm-10").first();
                 // replace body with selected element
                 if(element!=null) {
@@ -129,6 +123,8 @@ public class WebViewActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             webview.loadData(html, "text/html", "UTF-8");
+                            progressBar.setVisibility(View.GONE);
+                            loadingText.setText("");
                         }
                     });
                 }
