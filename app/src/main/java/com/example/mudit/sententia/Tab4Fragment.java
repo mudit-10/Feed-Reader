@@ -89,6 +89,7 @@ public class Tab4Fragment extends Fragment {
                         intent.putExtra("@string/pubDate", sports_posts.get(position).getPubDate());
                         intent.putExtra("@string/content", sports_posts.get(position).getContent());
                         intent.putExtra("@string/link", sports_posts.get(position).getLink());
+                        intent.putExtra("@string/category", "Sports");
                         startActivity(intent);
                     }
                 });

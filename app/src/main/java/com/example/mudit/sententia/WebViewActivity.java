@@ -45,6 +45,9 @@ public class WebViewActivity extends AppCompatActivity {
     String link;
     ProgressBar progressBar;
     TextView loadingText;
+    String category;
+    ImageView back_button;
+    TextView toolbar_title;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,8 +55,9 @@ public class WebViewActivity extends AppCompatActivity {
         setContentView(R.layout.webview_activity);
         webview = (WebView) findViewById(R.id.webview);
         progressBar = (ProgressBar) findViewById(R.id.webviewLoadingProgressBar);
-        ImageView back_button = (ImageView) findViewById(R.id.back_button);
+        back_button = (ImageView) findViewById(R.id.back_button);
         loadingText = (TextView) findViewById(R.id.progressText);
+        toolbar_title = (TextView) findViewById(R.id.toolbar_title);
         Log.d(TAG, "onCreate: Started.");
 
         progressBar.setVisibility(View.VISIBLE);
@@ -66,6 +70,10 @@ public class WebViewActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         link = intent.getStringExtra("@string/link");
+        category = intent.getStringExtra("@string/category");
+
+        toolbar_title.setText(category);
+
         webview.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

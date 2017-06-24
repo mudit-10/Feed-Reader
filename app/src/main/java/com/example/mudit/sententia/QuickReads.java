@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 /**
  * Created by mudit on 23/6/17.
  */
@@ -33,6 +35,7 @@ public class QuickReads extends AppCompatActivity {
         String creator;
         String pubDate;
         String content;
+        final String category;
         final String link;
 
         Intent incomingIntent = getIntent();
@@ -41,12 +44,15 @@ public class QuickReads extends AppCompatActivity {
         pubDate = incomingIntent.getStringExtra("@string/pubDate");
         content = incomingIntent.getStringExtra("@string/content");
         link = incomingIntent.getStringExtra("@string/link");
-
+        category = incomingIntent.getStringExtra("@string/category");
 
         TextView contentView = (TextView) findViewById(R.id.contentView);
         TextView titleView = (TextView) findViewById(R.id.titleView);
         Button button1 = (Button) findViewById(R.id.button1);
         ImageView back_button = (ImageView) findViewById(R.id.back_button);
+        TextView toolbar_title = (TextView) findViewById(R.id.toolbar_title);
+
+        toolbar_title.setText(category);
 
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,6 +110,7 @@ public class QuickReads extends AppCompatActivity {
                 Log.d(TAG, "onButtonClick: Clicked: ");
                 Intent intent = new Intent(QuickReads.this, WebViewActivity.class);
                 intent.putExtra("@string/link", link);
+                intent.putExtra("@string/category", category);
                 startActivity(intent);
             }
         });

@@ -88,7 +88,8 @@ public class Tab5Fragment extends Fragment {
                         intent.putExtra("@string/creator", tech_posts.get(position).getCreator());
                         intent.putExtra("@string/pubDate", tech_posts.get(position).getPubDate());
                         intent.putExtra("@string/content", tech_posts.get(position).getContent());
-                        intent.putExtra("@string/content", tech_posts.get(position).getLink());
+                        intent.putExtra("@string/link", tech_posts.get(position).getLink());
+                        intent.putExtra("@string/category", "Technology");
                         startActivity(intent);
                     }
                 });

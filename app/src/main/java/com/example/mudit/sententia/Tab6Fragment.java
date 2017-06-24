@@ -88,7 +88,8 @@ public class Tab6Fragment extends Fragment {
                         intent.putExtra("@string/creator", blog_posts.get(position).getCreator());
                         intent.putExtra("@string/pubDate", blog_posts.get(position).getPubDate());
                         intent.putExtra("@string/content", blog_posts.get(position).getContent());
-                        intent.putExtra("@string/content", blog_posts.get(position).getLink());
+                        intent.putExtra("@string/link", blog_posts.get(position).getLink());
+                        intent.putExtra("@string/category", "Blog");
                         startActivity(intent);
                     }
                 });

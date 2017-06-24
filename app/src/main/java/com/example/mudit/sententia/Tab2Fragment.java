@@ -91,6 +91,7 @@ public class Tab2Fragment extends Fragment {
                         intent.putExtra("@string/pubDate", business_posts.get(position).getPubDate());
                         intent.putExtra("@string/content", business_posts.get(position).getContent());
                         intent.putExtra("@string/link", business_posts.get(position).getLink());
+                        intent.putExtra("@string/category", "Business");
                         startActivity(intent);
                     }
                 });
