@@ -56,7 +56,8 @@ public class CustomListAdapter extends ArrayAdapter<Post> {
         mResource = resource;
 
         //sets up the image loader library
-        setupImageLoader();
+        if(!ImageLoader.getInstance().isInited())
+            setupImageLoader();
     }
 
     @NonNull

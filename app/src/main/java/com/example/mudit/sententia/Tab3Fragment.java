@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mudit.sententia.model.RSS;
@@ -80,6 +82,13 @@ public class Tab3Fragment extends Fragment {
                     mListView.setNestedScrollingEnabled(true);  // So, it becomes collapsible even when I scroll the list
 
                     CustomListAdapter customListAdapter = new CustomListAdapter(getActivity(), R.layout.front_page, politics_posts);
+
+                    //Loading Animation
+                    ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.loadingProgressBar);
+                    TextView progressText = (TextView) view.findViewById(R.id.progressText);
+                    progressBar.setVisibility(View.GONE);
+                    progressText.setText("");
+
                     mListView.setAdapter(customListAdapter);
 
                     mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -100,14 +109,14 @@ public class Tab3Fragment extends Fragment {
                 }
                 catch (NullPointerException e)
                 {
-                    Toast.makeText(getActivity(), "Error: Politics story could't be loaded"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Politics stories could't be loaded, please try again", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(retrofit2.Call<RSS> call, Throwable t) {
                 //Log.e(TAG, "onFailure: Unable to retrieve RSS: " + t.getMessage());
-                Toast.makeText(getActivity(),"Error: "+t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"Politics stories could't be loaded, please try again", Toast.LENGTH_SHORT).show();
             }
         });
         return view;

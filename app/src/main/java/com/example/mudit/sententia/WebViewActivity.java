@@ -154,6 +154,7 @@ public class WebViewActivity extends AppCompatActivity {
                 }
             } catch (IOException e) {
                 //Log.i(TAG, e.getMessage());
+                Toast.makeText(WebViewActivity.this, "Couldn't load, please try again", Toast.LENGTH_SHORT).show();
                 finish();
             }
         }

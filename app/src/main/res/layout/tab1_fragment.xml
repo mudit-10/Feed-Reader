@@ -12,4 +12,25 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:id="@+id/listview1"/>
+
+    <ProgressBar
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/loadingProgressBar"
+        android:layout_centerInParent="true"
+        style="?android:attr/progressBarStyle"/>
+
+    <TextView
+        android:layout_alignBottom="@id/loadingProgressBar"
+        android:layout_alignTop="@id/loadingProgressBar"
+        android:layout_alignRight="@id/loadingProgressBar"
+        android:layout_alignEnd="@id/loadingProgressBar"
+        android:layout_alignLeft="@id/loadingProgressBar"
+        android:layout_alignStart="@id/loadingProgressBar"
+        android:text="Loading Stories..."
+        android:textStyle="bold"
+        android:textSize="10sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressText"/>
 </RelativeLayout>
