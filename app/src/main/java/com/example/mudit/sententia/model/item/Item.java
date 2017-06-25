@@ -22,8 +22,8 @@ public class Item implements Serializable {
     @Element(required = false, name = "link")
     private String link;
 
-    @Element(required = false, name = "pubDate")
-    private String pubDate;
+//    @Element(required = false, name = "pubDate")
+//    private String pubDate;
 
     @Element(required = false, name = "creator")
     private String creator;
@@ -36,10 +36,11 @@ public class Item implements Serializable {
     public Item() {
     }
 
-    public Item(String title, String link, String pubDate, String creator, String content) {
+    //Can also have String pubDate
+
+    public Item(String title, String link, String creator, String content) {
         this.title = title;
         this.link = link;
-        this.pubDate = pubDate;
         this.creator = creator;
         this.content = content;
     }
@@ -54,13 +55,13 @@ public class Item implements Serializable {
         this.title = title;
     }
 
-    public String getPubDate() {
-        return pubDate;
-    }
-
-    public void setPubDate(String pubDate) {
-        this.pubDate = pubDate;
-    }
+//    public String getPubDate() {
+//        return pubDate;
+//    }
+//
+//    public void setPubDate(String pubDate) {
+//        this.pubDate = pubDate;
+//    }
 
     public String getCreator() {
         return creator;
@@ -91,7 +92,7 @@ public class Item implements Serializable {
         return "Item{" +
                 "title='" + title + '\'' +
                 ", link='" + link + '\'' +
-                ", pubDate='" + pubDate + '\'' +
+//                ", pubDate='" + pubDate + '\'' +
                 ", creator='" + creator + '\'' +
                 ", content='" + content + '\'' +
                 '}'+ "\n" +

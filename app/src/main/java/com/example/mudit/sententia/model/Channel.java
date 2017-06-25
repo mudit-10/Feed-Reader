@@ -18,8 +18,8 @@ import java.util.List;
 @Root(name = "channel", strict=false) // If we're skipping something
 public class Channel implements Serializable {
 
-    @Element(required = false, name = "title")
-    private String head_title;
+//    @Element(required = false, name = "title")
+//    private String head_title;
 
     @ElementList(name = "item", inline = true, required = false)
     // @Element for a single element within the tags and @ElementList for a list
@@ -33,19 +33,19 @@ public class Channel implements Serializable {
         this.items = items;
     }
 
-    public String getHead_title() {
-        return head_title;
-    }
+//    public String getHead_title() {
+//        return head_title;
+//    }
+//
+//    public void setHead_title(String head_title) {
+//        this.head_title = head_title;
+//    }
 
-    public void setHead_title(String head_title) {
-        this.head_title = head_title;
-    }
 
     @Override
     public String toString() {
         return "Channel{" +
-                "head_title='" + head_title + '\'' +
-                ", items=" + items +
+                "items=" + items +
                 '}';
     }
 }

@@ -7,15 +7,17 @@ package com.example.mudit.sententia;
 public class Post {
     private String title;
     private String creator;
-    private String pubDate;
+//    private String pubDate;
     private String content;
     private String link;
     private String img_url;
 
-    public Post(String title, String creator, String pubDate, String content, String link, String img_url) {
+    //Can also have pubDate as parameter
+
+
+    public Post(String title, String creator, String content, String link, String img_url) {
         this.title = title;
         this.creator = creator;
-        this.pubDate = pubDate;
         this.content = content;
         this.link = link;
         this.img_url = img_url;
@@ -37,13 +39,13 @@ public class Post {
         this.creator = creator;
     }
 
-    public String getPubDate() {
-        return pubDate;
-    }
-
-    public void setPubDate(String pubDate) {
-        this.pubDate = pubDate;
-    }
+//    public String getPubDate() {
+//        return pubDate;
+//    }
+//
+//    public void setPubDate(String pubDate) {
+//        this.pubDate = pubDate;
+//    }
 
     public String getContent() {
         return content;

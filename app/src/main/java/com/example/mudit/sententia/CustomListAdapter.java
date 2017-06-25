@@ -3,7 +3,6 @@ package com.example.mudit.sententia;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -129,7 +128,7 @@ public class CustomListAdapter extends ArrayAdapter<Post> {
 
             return convertView;
         }catch (IllegalArgumentException e){
-            Log.e(TAG, "getView: IllegalArgumentException: " + e.getMessage() );
+            //Log.e(TAG, "getView: IllegalArgumentException: " + e.getMessage() );
             return convertView;
         }
     }

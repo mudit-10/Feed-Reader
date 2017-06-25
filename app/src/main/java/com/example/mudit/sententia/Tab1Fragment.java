@@ -4,13 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,11 +25,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 import static com.example.mudit.sententia.Constants.feedAPI;
-import static com.example.mudit.sententia.Constants.retrofit;
 
 /**
  * Created by mudit on 19/6/17.
@@ -47,7 +41,7 @@ public class Tab1Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.tab1_fragment,container,false);
-        Log.d(TAG, "onCreate: Started.");
+        //Log.d(TAG, "onCreate: Started.");
 
         Call<RSS> call = feedAPI.getRss(extension);
 
@@ -55,18 +49,20 @@ public class Tab1Fragment extends Fragment {
             @Override
             public void onResponse(retrofit2.Call<RSS> call, Response<RSS> response) {
 
+                try {
+
                     //Log.d(TAG, "onResponse: feed: " + response.body().toString()); | This is used to display everything in pretty format
                     //Log.d(TAG, "onResponse: Server Response: " + response.toString());
 
                     List<Item> items = response.body().getChannel().getItems();
                     //Log.d(TAG, "onResponse: items: " + response.body().getChannel().getItems());
 
-                final ArrayList<Post> posts = new ArrayList<Post>();
-                    for (int i = 0; i< items.size(); i++){
+                    final ArrayList<Post> posts = new ArrayList<Post>();
+                    for (int i = 0; i < items.size(); i++) {
                         posts.add(new Post(
                                 items.get(i).getTitle(),
-                                "- "+items.get(i).getCreator(),
-                                items.get(i).getPubDate(),
+                                "- " + items.get(i).getCreator(),
+//                                items.get(i).getPubDate(),
                                 items.get(i).getContent(),
                                 items.get(i).getLink(),
                                 extractImageUrl(items.get(i).getContent())
@@ -81,7 +77,7 @@ public class Tab1Fragment extends Fragment {
 //                                "Link: " + posts.get(j).getLink() + "\n " +
 //                                "img: " + posts.get(j).getImg_url() + "\n ");
 //                    }
-                    Log.i(TAG, "Home Information successfully saved");
+                    //Log.i(TAG, "Home Information successfully saved");
 
                     ListView mListView = (ListView) view.findViewById(R.id.listview1);
                     mListView.setNestedScrollingEnabled(true);  // So, it becomes collapsible even when I scroll the list
@@ -92,11 +88,11 @@ public class Tab1Fragment extends Fragment {
                     mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Log.d(TAG, "onItemClick: Clicked: " + posts.get(position).toString());
+                            //Log.d(TAG, "onItemClick: Clicked: " + posts.get(position).toString());
                             Intent intent = new Intent(getActivity(), QuickReads.class);
                             intent.putExtra("@string/title", posts.get(position).getTitle());
-                            intent.putExtra("@string/creator", posts.get(position).getCreator());
-                            intent.putExtra("@string/pubDate", posts.get(position).getPubDate());
+//                            intent.putExtra("@string/creator", posts.get(position).getCreator());
+//                            intent.putExtra("@string/pubDate", posts.get(position).getPubDate());
                             intent.putExtra("@string/content", posts.get(position).getContent());
                             intent.putExtra("@string/link", posts.get(position).getLink());
                             intent.putExtra("@string/image_url", posts.get(position).getImg_url());
@@ -104,12 +100,17 @@ public class Tab1Fragment extends Fragment {
                             startActivity(intent);
                         }
                     });
+                }
+                catch (NullPointerException e)
+                {
+                    Toast.makeText(getActivity(), "Error: Home story could't be loaded"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
             public void onFailure(retrofit2.Call<RSS> call, Throwable t) {
-                Log.e(TAG, "onFailure: Unable to retrieve RSS: " + t.getMessage() );
-                Toast.makeText(getActivity(), "An Error Occured", Toast.LENGTH_SHORT).show();
+                //Log.e(TAG, "onFailure: Unable to retrieve RSS: " + t.getMessage() );
+                Toast.makeText(getActivity(), "Error: Home story could't be loaded"+t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         return view;

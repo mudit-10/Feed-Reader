@@ -153,7 +153,7 @@
                 android:layout_height="wrap_content"
                 android:text="test content"
                 android:textSize="14sp"
-                android:maxLines="18"
+                android:maxLines="16"
                 android:ellipsize="end"
                 android:textColor="@color/black"
                 android:id="@+id/contentView"/>

@@ -5,12 +5,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
-import android.text.Spanned;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -46,8 +45,8 @@ public class QuickReads extends AppCompatActivity {
         setContentView(R.layout.activity_quick_reads);
 
         String title;
-        String creator;
-        String pubDate;
+//        String creator;
+//        String pubDate;
         String content;
         String img_url;
         final String category;
@@ -55,8 +54,8 @@ public class QuickReads extends AppCompatActivity {
 
         Intent incomingIntent = getIntent();
         title = incomingIntent.getStringExtra("@string/title");
-        creator = incomingIntent.getStringExtra("@string/creator");
-        pubDate = incomingIntent.getStringExtra("@string/pubDate");
+//        creator = incomingIntent.getStringExtra("@string/creator");
+//        pubDate = incomingIntent.getStringExtra("@string/pubDate");
         content = incomingIntent.getStringExtra("@string/content");
         link = incomingIntent.getStringExtra("@string/link");
         img_url = incomingIntent.getStringExtra("@string/image_url");
@@ -86,7 +85,7 @@ public class QuickReads extends AppCompatActivity {
 
         socialMedia();
 
-        Log.i(TAG, content);
+        //Log.i(TAG, content);
 
         //Using JSoup to remove image tags to not be displayed in text view, Regex was slightly erroneous
         if(content != null) {
@@ -95,14 +94,22 @@ public class QuickReads extends AppCompatActivity {
             document.select("figure").remove();
             content = document.toString();
         }
-        contentView.setText(Html.fromHtml(content));
+
+        //Converting html to textview
+        if(Build.VERSION.SDK_INT >= 24){
+            contentView.setText(Html.fromHtml(content, Html.FROM_HTML_MODE_COMPACT));
+        }
+        else {
+            contentView.setText(Html.fromHtml(content));
+        }
+
         //contentView.setText(Html.fromHtml(content,new URLImageParser(contentView, this), null)); // For images in text view
         titleView.setText(title);
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onButtonClick: Clicked: ");
+                //Log.d(TAG, "onButtonClick: Clicked: ");
                 Intent intent = new Intent(QuickReads.this, WebViewActivity.class);
                 intent.putExtra("@string/link", link);
                 intent.putExtra("@string/category", category);

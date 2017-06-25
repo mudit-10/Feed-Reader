@@ -3,26 +3,22 @@ package com.example.mudit.sententia;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.net.Uri;
-import android.net.wifi.WifiEnterpriseConfig;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -59,7 +55,7 @@ public class WebViewActivity extends AppCompatActivity {
         back_button = (ImageView) findViewById(R.id.back_button);
         loadingText = (TextView) findViewById(R.id.progressText);
         toolbar_title = (TextView) findViewById(R.id.toolbar_title);
-        Log.d(TAG, "onCreate: Started.");
+        //Log.d(TAG, "onCreate: Started.");
 
         progressBar.setVisibility(View.VISIBLE);
         back_button.setOnClickListener(new View.OnClickListener() {
@@ -89,19 +85,17 @@ public class WebViewActivity extends AppCompatActivity {
         }
         catch(Exception e)
         {
-            Log.i(TAG,e.getMessage());
+                Toast.makeText(WebViewActivity.this, "Error: "+e.getMessage(), Toast.LENGTH_SHORT).show();
+            //Log.i(TAG,e.getMessage());
         }
 
-//        webview.getSettings().setJavaScriptEnabled(true);
-//        webview.loadUrl(link);
-//
-//        webview.setWebViewClient(new WebViewClient() {
-//            @Override
-//            public void onPageFinished(WebView view, String url) {
-//                progressBar.setVisibility(View.GONE);
-//                loadingText.setText("");
-//            }
-//        });
+        webview.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                progressBar.setVisibility(View.GONE);
+                loadingText.setText("");
+            }
+        });
     }
 
     // load links in WebView instead of default browser
@@ -138,7 +132,6 @@ public class WebViewActivity extends AppCompatActivity {
                 Document.OutputSettings settings = htmlDocument.outputSettings();
 
                 //Solves the character-encoding issue
-
                 settings.prettyPrint(false);
                 settings.escapeMode(Entities.EscapeMode.extended);
                 settings.charset("ASCII");
@@ -146,7 +139,7 @@ public class WebViewActivity extends AppCompatActivity {
                 Element element = htmlDocument.select("div.col-lg-10.col-md-10.col-sm-10").first();
                 // replace body with selected element
                 if(element!=null) {
-                    Log.i(TAG,"Here");
+                    //Log.i(TAG,"Here");
                     htmlDocument.body().empty().append(element.toString());
                     final String html = htmlDocument.toString();
 
@@ -154,13 +147,13 @@ public class WebViewActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             webview.loadData(html, "text/html", "UTF-8");
-                            progressBar.setVisibility(View.GONE);
-                            loadingText.setText("");
+//                            progressBar.setVisibility(View.GONE);
+//                            loadingText.setText("");
                         }
                     });
                 }
             } catch (IOException e) {
-                Log.i(TAG, e.getMessage());
+                //Log.i(TAG, e.getMessage());
                 finish();
             }
         }

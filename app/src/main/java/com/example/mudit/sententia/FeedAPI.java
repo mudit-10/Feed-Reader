@@ -1,6 +1,5 @@
 package com.example.mudit.sententia;
 
-import com.example.mudit.sententia.model.Channel;
 import com.example.mudit.sententia.model.RSS;
 
 import retrofit2.Call;
@@ -16,9 +15,11 @@ import retrofit2.http.Path;
 public interface FeedAPI {
     String BASE_URL = "http://sententia.in";
 
-//    @GET("feed")
-//    Call<RSS> getRss();
+    //Static
+//  @GET("feed")
+//  Call<RSS> getRss();
 
+    //Dynamic URLs
     @GET("{rss_name}/feed")
     Call<RSS> getRss(@Path(value = "rss_name", encoded = true) String rss_name);
 }
