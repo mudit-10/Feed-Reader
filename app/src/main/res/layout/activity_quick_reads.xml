@@ -84,6 +84,7 @@
                             android:layout_gravity="center"
                             android:layout_weight="7"
                             android:layout_marginRight="5dp"
+                            android:layout_marginEnd="5dp"
                             android:src="@drawable/instagram" />
 
                     </LinearLayout>
@@ -138,7 +139,7 @@
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textAlignment="center"
-                android:text="test title"
+                android:text="@string/test_title"
                 android:id="@+id/titleView"/>
 
             </RelativeLayout>
@@ -151,9 +152,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="test content"
+                android:text="@string/test_content"
                 android:textSize="14sp"
-                android:maxLines="16"
+                android:maxLines="14"
                 android:ellipsize="end"
                 android:textColor="@color/black"
                 android:id="@+id/contentView"/>
@@ -164,7 +165,7 @@
                 android:layout_below="@id/contentView"
                 android:textColor="@color/black"
                 android:id="@+id/button1"
-                android:text="Read More"/>
+                android:text="@string/read_more"/>
             </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>
