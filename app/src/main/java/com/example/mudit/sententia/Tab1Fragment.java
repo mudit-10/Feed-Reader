@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,15 +39,20 @@ public class Tab1Fragment extends Fragment {
     private static final String TAG = "Tab1Fragment";
     private static final String extension = "";
 
+//    long startTime;
+//    long elapsedTime;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        final View view = inflater.inflate(R.layout.tab1_fragment,container,false);
         //Log.d(TAG, "onCreate: Started.");
 
-        Call<RSS> call = feedAPI.getRss(extension);
+//        startTime = System.currentTimeMillis();
 
+        final View view = inflater.inflate(R.layout.tab1_fragment,container,false);
+
+        Call<RSS> call = feedAPI.getRss(extension);
         call.enqueue(new Callback<RSS>() {
             @Override
             public void onResponse(retrofit2.Call<RSS> call, Response<RSS> response) {
@@ -93,6 +99,9 @@ public class Tab1Fragment extends Fragment {
                     progressText.setText("");
 
                     mListView.setAdapter(customListAdapter);
+
+//                    elapsedTime = System.currentTimeMillis() - startTime;
+//                    Log.i(TAG, "Total elapsed http request/response time in milliseconds: " + elapsedTime);
 
                     mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override

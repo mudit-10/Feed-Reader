@@ -1,5 +1,7 @@
 package com.example.mudit.sententia;
 
+import android.util.Log;
+
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;

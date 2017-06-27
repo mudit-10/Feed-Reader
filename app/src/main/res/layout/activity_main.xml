@@ -89,7 +89,8 @@
             android:layout_gravity="center_horizontal"
             app:tabMode="scrollable"
             style="@style/MyTabLayout"
-            app:tabIndicatorColor="@color/websiteLogo" />
+            android:background="@color/websiteLogo"
+            app:tabIndicatorColor="@color/white" />
 
         </android.support.design.widget.AppBarLayout>
 
