@@ -1,6 +1,7 @@
 # Feed-Reader
 Feed-Reader is an Android App which reads the RSS feed(written in XML) from a blogging website through *Retrofit* <br>
 and displays it in list views arranged in various tabs. Each tab represents a different tag of the website. Fragments have been used alongwith viewpager, with the help of *FragmentPagerAdapter*. The coordinator layout has been used to give the effect of a collapsing toolbar. *JSoup* has been used to handle the html content of the website included in one of the tags of the XML. <br>
+Multithreading has been used in fetching data into the different fragments.
 
 ## Prerequisites
 
